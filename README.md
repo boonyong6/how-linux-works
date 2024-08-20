@@ -112,7 +112,7 @@ $ echo $STUFF
 $ export STUFF
 ```
 
-- Linux passes all of your shell’s environment variables to programs that the shell runs.
+- Linux passes all of your shell's environment variables to programs that the shell runs.
 - Many programs use environment variables for configuration and options.
 
 ## 2.9 The Command Path
@@ -220,18 +220,18 @@ $ gunzip file.gz &
 ```
 
 - Use the `nohup` command to keep a program running when logging out from a remote machine.
-- If a program tries to read something from the **standard input** when it’s in the **background**, it can **freeze** (try the `fg` to bring it back) or **terminate**.
-- To make sure that a background process doesn’t bother you is to redirect its output (and possibly input)
+- If a program tries to read something from the **standard input** when it's in the **background**, it can **freeze** (try the `fg` to bring it back) or **terminate**.
+- To make sure that a background process doesn't bother you is to redirect its output (and possibly input)
 
 ## 2.17 File Modes and Permissions
 
-- Use the `groups` command to see what group you’re in.
-- Some executable files have an **s** in the user permissions, which indicates it is **setuid**. It **runs as** though the **file owner** is the user instead of you (to get the file owner’s privileges). For example, the `passwd` program.
+- Use the `groups` command to see what group you're in.
+- Some executable files have an **s** in the user permissions, which indicates it is **setuid**. It **runs as** though the **file owner** is the user instead of you (to get the file owner's privileges). For example, the `passwd` program.
 - Common **absolute** permission modes:
   ![common-absolute-permission-modes](images/common-absolute-permission-modes.png)
 - You can only access a file in a directory if the **directory** is **executable**.
 - Use the `umask` command to set default permissions to any new file or directory.
-- Use `umask 022` (default) if you want everyone to be able to see all of the files and directories that you create, and use `umask 077` if you don’t.
+- Use `umask 022` (default) if you want everyone to be able to see all of the files and directories that you create, and use `umask 077` if you don't.
 
 ### 2.17.2 Working with Symbolic Links
 
@@ -245,7 +245,7 @@ $ ln -s /home/origdir somedir
 - Offers quick access to obscure directory paths.
 - Symbolic links are simply filenames that point to other names.
 - **Caveats:**
-  - The file type of the link target can’t be easily identified just by looking at the symbolic link.
+  - The file type of the link target can't be easily identified just by looking at the symbolic link.
   - Chained symbolic link \- link that points to another link.
   - Without the \-s option, ln creates a hard link, which can be more confusing than symbolic links. So, avoid using them.
 
@@ -294,8 +294,8 @@ Subdirectory | Description
 /proc | Provides **system statistics** through a brows-able directory-and-file interface. It contains **process information**.
 /run | Contains **runtime data** specific to the system, including certain process IDs, socket files, status records, and, in many cases, system logging. A temporary filesystem (**tmpfs**) mounted at boot time.
 /sys | Similar to /proc in that it provides a **device and system interface**.
-/sbin | Contains **executables related to system management**. Regular users usually don’t have /sbin components in their command path.
-/tmp | A storage area for **smaller**, temporary files that you don’t care much about.
+/sbin | Contains **executables related to system management**. Regular users usually don't have /sbin components in their command path.
+/tmp | A storage area for **smaller**, temporary files that you don't care much about.
 /usr | Has no user files. Many of the directories in /usr are the same as those in the root directory. (In the past, it was to keep space requirements low for the root.)
 /var | Programs record information that can **change over time**. System logging, caches, and other files that system programs create and manage are here.
 
@@ -303,7 +303,7 @@ Subdirectory | Description
 
 Subdirectory | Description
 -------------|------------
-/boot | Contains **kernel boot loader files** that pertain only to the **very first stage** of the Linux startup procedure. You won’t find information about how Linux starts up its services.
+/boot | Contains **kernel boot loader files** that pertain only to the **very first stage** of the Linux startup procedure. You won't find information about how Linux starts up its services.
 /media | Base attachment point for removable media such as flash drives.
 /opt | May contain additional third-party software.
 
@@ -314,7 +314,7 @@ Subdirectory | Description
 Subdirectory | Description
 -------------|------------
 /include | Holds **header files** used by the C compiler.
-/local | It’s where administrators can install their own software. **Its structure should look like that of  / and /usr**.
+/local | It's where administrators can install their own software. **Its structure should look like that of  / and /usr**.
 /man | Contains manual pages.
 /share | Contains files that should work on other kinds of Unix machines with no loss of functionality. These are usually **auxiliary data files** that programs and libraries read as necessary.
 
@@ -451,7 +451,7 @@ $ sudo fdisk -l
 ### 4.1.2 Modifying Partition Tables
 
 - Before modifying the partition table, ensure that no partitions on your target disk are currently in use.
-- After modifying the partition table, **fdisk** issues a system call to tell the kernel to reread the disk’s partition table.
+- After modifying the partition table, **fdisk** issues a system call to tell the kernel to reread the disk's partition table.
   1. Use **journalctl \-k** to view the debugging output of rereading the partition table.
 - For **parted**, it signals the kernel when individual partitions are altered.
   1. Use udevadm to watch the kernel event changes: udevadm monitor \--kernel
@@ -530,7 +530,7 @@ $ sudo tune2fs -U 641b1a3a-ddd7-4cd4-9702-038513891fd1 /dev/sdb2
 
 ### 4.2.5 Disk Buffering, Caching, and Filesystems
 
-- Kernel usually doesn’t immediately write changes to filesystems. Instead, it **stores those changes in RAM (disk buffers)** until the kernel determines a good time to write them to the disk.
+- Kernel usually doesn't immediately write changes to filesystems. Instead, it **stores those changes in RAM (disk buffers)** until the kernel determines a good time to write them to the disk.
 - When you **unmount** a filesystem, the kernel automatically **synchronizes with the disk**.
 
 ```bash
@@ -712,9 +712,9 @@ $ sudo lvresize -r -l +255 myvg/mylv1
 ### 4.4.3 The LVM Implementation
 
 - LVM is just the name of a suite of user-space utilities.
-- **Kernel handles the work of routing** a request for a location on a logical volume’s block device to the true location on an actual device.
+- **Kernel handles the work of routing** a request for a location on a logical volume's block device to the true location on an actual device.
 - **Device mapper (kernel driver)** is sandwiched between normal block devices and the filesystem.
-- There’s a **header** at the beginning of every **PV** that identifies the volume as well as its volume groups and the logical volumes within.
+- There's a **header** at the beginning of every **PV** that identifies the volume as well as its volume groups and the logical volumes within.
 
   ```bash
   # Shows the LVM header on a PV
@@ -860,7 +860,7 @@ Mount units | Represent the attachment of filesystems.
   ```
 
 - In a unit file, there can be **multiple sections denoted by square brackets**, each containing multiple options.
-- In a **service unit**, you’ll find the details in the **`[Service]` section**, including how to **prepare**, **start**, and **reload** the service.
+- In a **service unit**, you'll find the details in the **`[Service]` section**, including how to **prepare**, **start**, and **reload** the service.
 - Upon unit activation, systemd records and stores its PID in the **`$MAINPID`** variable.
 - Specifier (**%**) is a **variable-like feature**.
   - It can be used in units that support **multiple instances**.
@@ -906,11 +906,11 @@ $ sudo systemctl -p Wants show systemd-journald.service
 **Service unit files** use the **`[Service]`** section's **Type option** to indicate **startup behavior/status**.
 Type option | Description
 ------------|------------
-Type=**simple** | The service doesn’t fork and terminate. It remains the main service process. <br><br>Unable to determine whether the service process is ready.
+Type=**simple** | The service doesn't fork and terminate. It remains the main service process. <br><br>Unable to determine whether the service process is ready.
 Type=**forking** | The service forks, and systemd expects the original service to terminate. Upon this termination, systemd assumes the service is ready.
 Type=**notify** | The service makes a systemd-specific function call to signal its readiness.
 Type=**dbus** | The service registers itself on the D-Bus to signal its readiness.
-Type=**oneshot** | The service terminates completely with no child processes after starting. <br><br>It’s like **Type=simple**, except that systemd does not consider the service to be started until the service terminates. <br><br>systemd regards a service as active even after its termination.
+Type=**oneshot** | The service terminates completely with no child processes after starting. <br><br>It's like **Type=simple**, except that systemd does not consider the service to be started until the service terminates. <br><br>systemd regards a service as active even after its termination.
 Type=**idle** | Works like **Type=simple**, but it instructs systemd not to start the service until all active jobs finish (**delay start**).
 
 ### 6.3.6 systemd Dependencies
@@ -919,18 +919,18 @@ Dependency type<br>(Specify under `[Unit]` section) | Description
 ----------------------------------------------------|------------
 **Basic**
 Requires | systemd attempts to activate the dependency unit. If the dependency unit fails, systemd also deactivates the dependent unit.
-Wants | systemd doesn’t care if dependencies fail.
+Wants | systemd doesn't care if dependencies fail.
 Requisite | Dependency units must be active before activating the dependent unit.
-Conflict | systemd deactivates the opposing dependency if it’s active.
+Conflict | systemd deactivates the opposing dependency if it's active.
 **Ordering**
 Before | Activates before the listed unit(s).
 After | Activates after the listed unit(s).
 **Conditional**<br>(systemd activates unit dependencies regardless of whether the condition is true or false)
 ConditionPathExists=p | True if the path p exists.
 ConditionPathIsDirectory=p | True if p is a directory.
-ConditionFileNotEmpty=p | True if p is a file and it’s not zero-length.
+ConditionFileNotEmpty=p | True if p is a file and it's not zero-length.
 
-- To specify the dependent unit in a dependency’s unit file, you can add a `WantedBy` or `RequiredBy` parameter in the **`[Install]` section** (e.g. when you’d rather not edit a system unit file).
+- To specify the dependent unit in a dependency's unit file, you can add a `WantedBy` or `RequiredBy` parameter in the **`[Install]` section** (e.g. when you'd rather not edit a system unit file).
 - .wants and .requires directories are created after enabling the unit to establish the dependencies.
 - Manually adding .wants and .requires directories is a simple way to add a dependency without modifying a unit file, but it can be difficult to trace.
 
@@ -940,7 +940,7 @@ ConditionFileNotEmpty=p | True if p is a file and it’s not zero-length.
   1. Create a unit, Unit A, for the service.
   2. Identify a resource (e.g. network port/socket, file, device) that Unit A uses to offer its services.
   3. Create another unit, Unit R, to represent that resource.
-  4. Define the relationship between Unit A and Unit R, this can be implicit (based on the units’ names) or explicit.
+  4. Define the relationship between Unit A and Unit R, this can be implicit (based on the units' names) or explicit.
 - Operation after setup:
   1. Upon activation of Unit R, systemd monitors the resource.
   2. If the service, Unit A, isn't ready, any requests to the resource will be buffered.
@@ -948,7 +948,7 @@ ConditionFileNotEmpty=p | True if p is a file and it’s not zero-length.
   4. Unit A takes control of the resource and reads the buffered input.
 - Example
   1. Create a socket unit (resource), named **echo.socket**, to represent the port.
-  2. Create a service unit, named **`echo@.service`** (link the resource implicitly by naming convention). systemd knows to activate the service unit when there’s activity on the socket unit.
+  2. Create a service unit, named **`echo@.service`** (link the resource implicitly by naming convention). systemd knows to activate the service unit when there's activity on the socket unit.
 
 ```bash
 # echo.socket file
@@ -1029,8 +1029,8 @@ $ sudo shutdown -r +10
 ## 6.7 The Initial RAM Filesystem
 
 - **Problem**
-  - Since the kernel doesn’t talk to the BIOS/UEFI interfaces, it needs driver support in order to mount the root filesystem and hand off to init.
-  - There are so many storage drivers that distributions can’t include in their kernels, and many drivers are shipped as loadable modules.
+  - Since the kernel doesn't talk to the BIOS/UEFI interfaces, it needs driver support in order to mount the root filesystem and hand off to init.
+  - There are so many storage drivers that distributions can't include in their kernels, and many drivers are shipped as loadable modules.
 - **Solution**
   - Gather necessary kernel driver modules and utilities into an **archive**.
   - **Boot loader loads the archive into memory** before running the kernel.
@@ -1039,7 +1039,7 @@ $ sudo shutdown -r +10
 
 ## 6.8 Emergency Booting and Single-User Mode
 
-- Single-user mode doesn’t offer many functions.
+- Single-user mode doesn't offer many functions.
 - **Live images** are **always preferable**.
 
 # 7 SYSTEM CONFIGURATION: LOGGING, SYSTEM TIME, BATCH JOBS, AND USERS
@@ -1131,7 +1131,7 @@ $ journalctl -f
 ### 7.1.4 Journal Maintenance
 
 - journald deletes messages based on
-  - **How much space is left** on the journal’s filesystem
+  - **How much space is left** on the journal's filesystem
   - How much space the journal should take as a **percentage** of the filesystem
   - What the **maximum journal size** is set to
 
@@ -1140,7 +1140,7 @@ $ journalctl -f
 - One powerful feature of **syslogd** is the ability to listen on a **network socket**, enabling clients to send messages across a network. So, syslog became popular with network administrators.
 - Many network devices (e.g. routers and embedded devices) can act as syslog clients.
 - Facility, Severity, and Other Fields
-  - As an **early tool for system monitoring**, syslogd was capable of sending important messages to consoles and logged-in users based on the messages’ **facility** (general category of service) and **severity**.
+  - As an **early tool for system monitoring**, syslogd was capable of sending important messages to consoles and logged-in users based on the messages' **facility** (general category of service) and **severity**.
   - In **syslog**, **facility \+ severity \= priority**. Whereas, in **journald**, **severity \= priority**.
   - Facilities used in syslog have become obsolete over time, and there is no way to add new ones.
 - The Relationship Between Syslog and journald
@@ -1191,7 +1191,7 @@ $ sudo adduser user6
 # Delete a user. Use -r to delete the user's home directory as well.
 $ sudo userdel
 ```
-- If you really must edit the **`/etc/passwd`** directly (it’s corrupted), use the `vipw` program, which backs up and locks `/etc/passwd` while you’re editing it. To edit **`/etc/shadow`**, use `vipw` \-s.
+- If you really must edit the **`/etc/passwd`** directly (it's corrupted), use the `vipw` program, which backs up and locks `/etc/passwd` while you're editing it. To edit **`/etc/shadow`**, use `vipw` \-s.
 
 ### 7.3.5 Working with Groups
 
@@ -1210,8 +1210,8 @@ $ sudo userdel
 $ sudo hwclock --systohc --utc
 ```
 
-- Don’t try to fix time drift with hwclock because time-based system events can get lost or damaged.
-- It’s best to keep the system time correct with a network daemon (`systemd-timesyncd`).
+- Don't try to fix time drift with hwclock because time-based system events can get lost or damaged.
+- It's best to keep the system time correct with a network daemon (`systemd-timesyncd`).
 
 ### 7.5.1 Kernel Time Representation and Time Zones
 
@@ -1261,12 +1261,12 @@ $ crontab -e
 
 ### 7.6.2 System Crontab Files (/etc/crontab)
 
-- Can **group system tasks together** even if they aren’t all run by the same user.
+- Can **group system tasks together** even if they aren't all run by the same user.
 
 ### 7.6.3 Timer Units
 
 - To create a periodic task using a systemd timer, two units (a **timer unit** and a **service unit**) are needed.
-- A **timer unit** doesn’t contain any specifics about the task to perform. It’s just an **activation mechanism** to run a service unit.
+- A **timer unit** doesn't contain any specifics about the task to perform. It's just an **activation mechanism** to run a service unit.
 - Example:
   ```bash
   # loggertest.timer
@@ -1334,7 +1334,7 @@ $ sudo systemd-run --on-active=30m /bin/echo this is a test
 ## 7.8 Timer Units Running as Regular Users
 
 - Use \--user option to systemd-run to run a timer unit as a regular user.
-- However, if you log out before the unit runs, the unit won’t start, and if you log out before the unit completes, the unit terminates.
+- However, if you log out before the unit runs, the unit won't start, and if you log out before the unit completes, the unit terminates.
 
 ```bash
 # To keep the user manager around after you log out
@@ -1366,7 +1366,7 @@ $ sudo loginctl enable-linger user
 ### 7.10.1 PAM Configuration
 
 - The configuration **varies significantly between distributions**.
-- The module and function together determine PAM’s action.
+- The module and function together determine PAM's action.
 - A module can have more than one function type. For example, the pam_unix.so module checks a password when performing the **auth** function, but it sets a password when performing the **password** function.
 
 ### 7.10.2 Tips on PAM Configuration Syntax
@@ -1429,7 +1429,7 @@ $ strace cat /dev/null
 
 ### 8.4.1 Single-Threaded and Multithreaded Processes
 
-- Although you can achieve simultaneous computation with multiple processes, **threads start faster than processes**, and it’s often **easier** or **more efficient** for threads to intercommunicate using their shared memory than it is for processes to communicate over a channel, such as a network connection or a pipe.
+- Although you can achieve simultaneous computation with multiple processes, **threads start faster than processes**, and it's often **easier** or **more efficient** for threads to intercommunicate using their shared memory than it is for processes to communicate over a channel, such as a network connection or a pipe.
 
 ### 8.4.2 Viewing Threads
 
@@ -1452,8 +1452,8 @@ $ top -p pid1 [-p pid2 ...]
 $ time ls
 ```
 
-- **User time (user)** is the number of seconds that the CPU has spent running the program’s own code.
-- **System time (sys or system)** is how much time the kernel spends doing the process’s work.
+- **User time (user)** is the number of seconds that the CPU has spent running the program's own code.
+- **System time (sys or system)** is how much time the kernel spends doing the process's work.
 - **Real time (real)** (also called **elapsed time**) is the total time it took to run the process from start to finish, including the time that the CPU spent doing other tasks.
 
 ### 8.5.2 Adjusting Process Priorities
@@ -1486,15 +1486,15 @@ $ cat /proc/meminfo
 - **How Memory Works**
   - The CPU has a **memory management unit (MMU)**.
   - Kernel assists MMU by **breaking down the memory** used by processes **into smaller chunks called pages**.
-  - As a process accesses memory, the **MMU translates the virtual addresses** used by the process into real addresses **based on the kernel’s page table**.
+  - As a process accesses memory, the **MMU translates the virtual addresses** used by the process into real addresses **based on the kernel's page table**.
   - Kernel loads and allocates pages as a process needs them (aka **demand paging**).
 - **Page Faults**
-  - Process triggers a page fault when a memory page isn’t ready.
+  - Process triggers a page fault when a memory page isn't ready.
   - Kernel takes control of the CPU from the process in order to get the page ready.
   - **Minor page faults**
-    - Occur when the process requests more memory or when the MMU doesn’t have enough space to store all of the page locations (the MMU’s internal mapping table is small).
+    - Occur when the process requests more memory or when the MMU doesn't have enough space to store all of the page locations (the MMU's internal mapping table is small).
   - **Major page faults** \-
-    - Occur when the desired memory page isn’t in main memory, and the kernel must load it from the disk.
+    - Occur when the desired memory page isn't in main memory, and the kernel must load it from the disk.
     - The problems happen when you start running out of memory, which forces the kernel to start **swapping pages** of working memory out to the disk in order to make room for new pages and can lead to **thrashing** (when the system starts using the virtual memory).
 
 ```bash
@@ -1577,9 +1577,9 @@ $ pidstat -p 1329 1
 
 - Creating cgroups is **tricky** because of the rules governing cgroups.
   - You can put processes only in outer-level (“leaf”) cgroups.
-  - A cgroup can’t have a controller that isn’t in its parent cgroup.
+  - A cgroup can't have a controller that isn't in its parent cgroup.
   - You must specify controllers for child cgroups through the **cgroup.subtree_control** file.
-  - An exception is that you can place processes in the root cgroup. One reason you might want to do this is to detach a process from systemd’s control.
+  - An exception is that you can place processes in the root cgroup. One reason you might want to do this is to detach a process from systemd's control.
 
 ### *8.6.4 Viewing Resource Utilization
 
@@ -1623,7 +1623,7 @@ $ cat cpu.stat
 
 ## 9.4 The Internet Layer
 
-- It’s meant to be a software network that places **no particular requirements on hardware or operating systems**.
+- It's meant to be a software network that places **no particular requirements on hardware or operating systems**.
 - A host (router) can be attached to more than one subnet.
 
 ### 9.4.1 Viewing IP Addresses
@@ -1650,7 +1650,7 @@ $ route -n
 
 ## 9.6 The Default Gateway
 
-- The entry for **default** in the routing table **matches any address** on the internet. In CIDR notation, it’s **0.0.0.0/0** for IPv4.
+- The entry for **default** in the routing table **matches any address** on the internet. In CIDR notation, it's **0.0.0.0/0** for IPv4.
 - Kernel chooses the route that has the longest destination prefix that matches.
 
 ## 9.7 IPv6 Addresses and Networks
@@ -1671,7 +1671,7 @@ $ ip -6 route show
 
 ## 9.8 Basic ICMP and DNS Tools
 
-- **ICMP** is a **transport layer protocol** used to configure and **diagnose internet networks**. It doesn’t carry any true user data, and thus there’s no application layer above it.
+- **ICMP** is a **transport layer protocol** used to configure and **diagnose internet networks**. It doesn't carry any true user data, and thus there's no application layer above it.
 - **DNS** is an **application layer protocol**.
 
 ### 9.8.1 ping
@@ -1690,7 +1690,7 @@ $ host www.example.com
 
 ## 9.9 The Physical Layer and Ethernet
 
-- Ethernet doesn’t go beyond hardware on a single network. You can’t directly transmit a frame from one Ethernet network to the other unless you set up an Ethernet bridge.
+- Ethernet doesn't go beyond hardware on a single network. You can't directly transmit a frame from one Ethernet network to the other unless you set up an Ethernet bridge.
 
 ## 9.10 Understanding Kernel Network Interfaces
 
@@ -1716,7 +1716,7 @@ $ sudo ip route add default via 192.168.0.1 dev enp3s0
 $ sudo ip route del default
 ```
 
-- It’s usually best to configure the routers acting as the default gateways to do all of the work of routing between different local subnets.
+- It's usually best to configure the routers acting as the default gateways to do all of the work of routing between different local subnets.
 
 ## 9.12 Boot-Activated Network Configuration
 
@@ -1733,7 +1733,7 @@ $ sudo ip route del default
 ## 9.14 Network Configuration Managers
 
 - The most widely used option on **desktops** and **notebooks** is **NetworkManager**.
-- **systemd-networkd** is useful for machines that don’t need much flexibility (such as **servers**).
+- **systemd-networkd** is useful for machines that don't need much flexibility (such as **servers**).
 
 ### 9.14.1 NetworkManager Operation
 
@@ -1756,7 +1756,7 @@ $ nmcli
 
 - General configuration directory - **`/etc/NetworkManager`**
 - General configuration file - **`/etc/NetworkManager/NetworkManager.conf`**
-- When using the **keyfile** plug-in, you can see all of the system’s known connections in **`/etc/NetworkManager/system-connections`**.
+- When using the **keyfile** plug-in, you can see all of the system's known connections in **`/etc/NetworkManager/system-connections`**.
 - Unmanaged interfaces - `lo` (loopback, localhost)
 
 ## 9.15 Resolving Hostnames
@@ -1804,7 +1804,7 @@ $ resolvectl status
 
 ### 9.17.2 UDP
 
-- UDP won’t correct for lost or out-of-order packets.
+- UDP won't correct for lost or out-of-order packets.
 - **TCP** is like having a **phone call**; **UDP** is like sending an **instant message**.
 - Applications that use UDP are often concerned with **speed**, such as **NTP** and **video chat**.
 
@@ -1821,7 +1821,7 @@ $ resolvectl status
 
 - There are only two DHCP clients:
   1. dhclient (traditional)
-  2. systemd-networkd’s built-in DHCP client
+  2. systemd-networkd's built-in DHCP client
 
 ### 9.19.2 Linux DHCP Servers
 
@@ -1829,7 +1829,7 @@ $ resolvectl status
 
 ## 9.20 Automatic IPv6 Network Configuration
 
-- Does not require a central server (aka **stateless configuration**) \- clients don’t need to store any data such as lease assignments.
+- Does not require a central server (aka **stateless configuration**) \- clients don't need to store any data such as lease assignments.
 - A host can generate a **link-local address** (**fe80::/64 prefix**) that is unlikely to be duplicated and broadcast it to the network to check for availability.
 - A host listening for a **router advertisement (RA) message** (includes **global network prefix**) that routers **send on the link-local network**, and attempt to fill in the interface ID.
 - Stateless configuration relies on a global network prefix at most 64 bits long.
@@ -1838,7 +1838,7 @@ $ resolvectl status
 
 - NAT is the most common way to **share a single IP address** with a **private subnet**.
 - Transforms packets as it moves them.
-- NAT is essentially a hack that **extends the lifetime of the IPv4** address space (IPv6 doesn’t need NAT).
+- NAT is essentially a hack that **extends the lifetime of the IPv4** address space (IPv6 doesn't need NAT).
 
 ## 9.25 Firewalls
 
@@ -1848,7 +1848,7 @@ $ resolvectl status
 
 - A **new packet arriving from the physical layer** (network) is classified by the **kernel** as “**input**”, so it activates rules in chains corresponding to input.
 - The system that maintains the firewall's data structures is called **iptables**.
-- Although there are many tables, you’ll normally work with a single table named **filter** that controls basic packet flow.
+- Although there are many tables, you'll normally work with a single table named **filter** that controls basic packet flow.
 - **Three basic chains** in the filter table: **INPUT**, **OUTPUT** and **FORWARD**.
   ![chain-processing-sequence](images/chain-processing-sequence.png)
 
@@ -1881,8 +1881,8 @@ $ sudo iptables -I INPUT 4 -s 192.168.34.37 -j ACCEPT
 ### \*9.25.3 Firewall Strategies
 
 - Two basic kinds of firewall scenarios:
-  1. For protecting **individual machines** (set rules in each **machine’s INPUT chain**)
-  2. For protecting a **network of machines** (set rules in the **router’s FORWARD chain**)
+  1. For protecting **individual machines** (set rules in each **machine's INPUT chain**)
+  2. For protecting a **network of machines** (set rules in the **router's FORWARD chain**)
 - Allow only the packets that you trust.
 - You could adapt the following settings on a firewalling router by using the FORWARD chain instead of INPUT, and using source and destination subnets where appropriate.
 
@@ -1952,7 +1952,7 @@ $ telnet example.org 80
 $ curl --trace-ascii trace_file https://www.example.org/
 ```
 
-- Operating system (aka **kernel**) **didn’t differentiate between header and document data**. The **distinctions happen inside the user-space program**.
+- Operating system (aka **kernel**) **didn't differentiate between header and document data**. The **distinctions happen inside the user-space program**.
 
 ## 10.3 Network Servers
 
@@ -1960,7 +1960,7 @@ $ curl --trace-ascii trace_file https://www.example.org/
 
 ### 10.3.1 Secure Shell
 
-- To set up an SSH connection, you need the remote host’s public key.
+- To set up an SSH connection, you need the remote host's public key.
 
 ### *10.3.2 The sshd Server
 
@@ -1974,8 +1974,8 @@ $ curl --trace-ascii trace_file https://www.example.org/
   $ sudo ssh-keygen -t dsa -N '' -f /etc/ssh/ssh_host_dsa_key
   ```
 - The SSH server and clients use a key file (**ssh_known_hosts**) **to store public keys** from other hosts.
-- Knowing about the key files is handy if you’re replacing a machine.
-- When migrating machines, you can import the key files to ensure that users don’t get key mismatches.
+- Knowing about the key files is handy if you're replacing a machine.
+- When migrating machines, you can import the key files to ensure that users don't get key mismatches.
 
 ### 10.3.3 fail2ban
 
@@ -2073,7 +2073,7 @@ $ nmap 192.168.0.0/24
   - Block as much as possible with a firewall.
   - Track the services (e.g. SSH server) that you offer to the internet.
   - Use “long-term support” distribution releases for servers.
-  - Don’t give an account on your system to anyone who doesn’t need one. It’s much easier to gain superuser access from a local account than it is to break in remotely.
+  - Don't give an account on your system to anyone who doesn't need one. It's much easier to gain superuser access from a local account than it is to break in remotely.
   - Avoid installing suspicious binary packages.
 - Three basic kinds of network attacks:
   1. **Full compromise** \- accomplished by a **service attack**, such as by taking over a **poorly protected user account** and exploiting a poorly written **setuid program**.
@@ -2102,8 +2102,8 @@ $ nmap 192.168.0.0/24
 
 - Used for **interprocess communication (IPC)**.
 - Behaves almost exactly like it does with a network socket. It can listen for and accept connections on the socket, and you can even choose between different socket types to make it behave like TCP or UDP.
-- Allow to use special socket files in the filesystem to control access, so any process that doesn’t have access to a socket file can’t use it.
-- Kernel doesn’t have to go through the many layers of its networking subsystem.
+- Allow to use special socket files in the filesystem to control access, so any process that doesn't have access to a socket file can't use it.
+- Kernel doesn't have to go through the many layers of its networking subsystem.
 
 ```bash
 # To list of Unix domain sockets currently in use.
@@ -2118,7 +2118,7 @@ $ sudo lsof -U
 
 ### 11.1.1 Limitations of Shell Scripts
 
-- Be aware of your shell script sizes, they **aren’t meant to be big**.
+- Be aware of your shell script sizes, they **aren't meant to be big**.
 
 ### 11.2.2 Single Quotes
 
@@ -2134,7 +2134,7 @@ $ sudo lsof -U
 - Use backslash (\\) to escape special characters.
 - Backslash and quote must appear outside any pair of single quotes.
 - A general rule to quote an entire string with no substitutions:
-  1. Change all ‘ to ‘\\’'
+  1. Change all ' to '\\''
   2. Enclose the entire string in single quotes.
 
 ```bash
@@ -2148,7 +2148,7 @@ $ echo 'this isn'\''t a forward slash: \'
 ### 11.3.2 Number of Arguments: $#
 
 - Holds the number of arguments.
-- Important when you’re running **`shift`** in a loop to pick through arguments.
+- Important when you're running **`shift`** in a loop to pick through arguments.
 
 ### 11.3.3 All Arguments: $@
 
@@ -2257,7 +2257,7 @@ done
 ### 11.6.2 while Loops
 
 - Can break out of a while loop with the break statement.
-- You **shouldn’t need** to use the while and until loops very often. If you need to use while, you should probably be using language more appropriate to your task.
+- You **shouldn't need** to use the while and until loops very often. If you need to use while, you should probably be using language more appropriate to your task.
 
 ## *11.7 Command Substitution
 
@@ -2320,7 +2320,7 @@ $ sed '/exp/d' input-file
 ### *11.10.4 xargs
 
 - Commonly used with the **find command**.
-- Starts a process for each file, so don’t expect great performance.
+- Starts a process for each file, so don't expect great performance.
 - Alternative for find command: \-exec option.
 
 ```bash
@@ -2427,7 +2427,7 @@ $ rsync -a --delete dir host:des_dir
 ![normal-rsync-copy](images/normal-rsync-copy.png)
 
 - You can think of a transfer of `dir/` as an operation similar to `cp dir/* dest_dir`
-- There’s a greater potential for disaster when you combine the trailing `/` with the `--delete` option.
+- There's a greater potential for disaster when you combine the trailing `/` with the `--delete` option.
 
 ![effect-of-trailing-slash-in-rsync](images/effect-of-trailing-slash-in-rsync.png)
 
@@ -2485,7 +2485,7 @@ $ rsync -a host:src_dir dest_dir
 
 ### 12.4.3 Passwords
 
-- An alternative password system for small networks - **Samba’s Trivial Database (TDB)** backend.
+- An alternative password system for small networks - **Samba's Trivial Database (TDB)** backend.
 - Entries to set up in smb.conf `[global]` section:
   ![entries-to-set-up-in-smb-conf](images/entries-to-set-up-in-smb-conf.png)
 - You can optionally specify a pathname for the TDB file after a colon, such as `tdbsam:/etc/samba/private/passwd.tdb`.
@@ -2504,7 +2504,7 @@ $ rsync -a host:src_dir dest_dir
 
 ## 12.5 SSHFS
 
-- Suitable for scenarios that **aren’t complicated**.
+- Suitable for scenarios that **aren't complicated**.
 - To ensure consistency of ownership and security, this type of filesystem is usually **best mounted as a regular user**.
 - **Disadvantage**: multi-user setups are limited.
 
@@ -2519,12 +2519,12 @@ $ fusermount -u mountpoint
 
 - One of **the most commonly used traditional systems** for file sharing among Unix systems.
 - There are many different versions of NFS for different scenarios.
-- Use the systemd’s **automount unit type** to mount **network filesystems** on demand.
+- Use the systemd's **automount unit type** to mount **network filesystems** on demand.
 
 # 13 USER ENVIRONMENTS
 
 - Startup files (aka **dot files**) determine how the system behaves when a user logs in.
-- **Shell startup files** are the ones you’re most likely to modify or rewrite from scratch.
+- **Shell startup files** are the ones you're most likely to modify or rewrite from scratch.
 
 ## 13.2 When to Alter Startup Files
 
@@ -2562,15 +2562,15 @@ $ fusermount -u mountpoint
 - **Login Shells**
   - Logging in remotely with **SSH** also gives you a login shell.
   - If the first character returned from `echo $0` is a `-`, the shell is a login shell.
-  - When bash runs as a login shell, it runs **`/etc/profile`**. Then it looks for a user’s **`.bash_profile`**, **`.bash_login`**, and **`.profile`** files, running only the first one that it sees.
+  - When bash runs as a login shell, it runs **`/etc/profile`**. Then it looks for a user's **`.bash_profile`**, **`.bash_login`**, and **`.profile`** files, running only the first one that it sees.
 - **Non-Login Shells**
-  - Upon starting up, bash runs **`/etc/bash.bashrc`** and then runs the user’s **`.bashrc`**.
+  - Upon starting up, bash runs **`/etc/bash.bashrc`** and then runs the user's **`.bashrc`**.
 
 ## 13.6 Startup File Pitfalls
 
-- Don’t put any kind of graphical command.
-- Don’t set the `DISPLAY` environment variable.
-- Don’t run commands that print to the standard output.
+- Don't put any kind of graphical command.
+- Don't set the `DISPLAY` environment variable.
+- Don't run commands that print to the standard output.
 - Never set `LD_LIBRARY_PATH`.
 
 # 14 A BRIEF SURVEY OF THE LINUX DESKTOP AND PRINTING
@@ -2591,8 +2591,8 @@ $ fusermount -u mountpoint
 
 ### 14.1.3 Wayland
 
-- Decentralized by design: there’s no centralized authority for rendering graphics.
-- Each client uses a **compositor** (software) to combine all of the clients’ buffers into the necessary form for copying to the screen’s framebuffer.
+- Decentralized by design: there's no centralized authority for rendering graphics.
+- Each client uses a **compositor** (software) to combine all of the clients' buffers into the necessary form for copying to the screen's framebuffer.
 - Most Wayland setups and many X servers use **libinput** to standardize events, such as channeling input to the correct application.
 
 ### 14.1.4 Window Managers
@@ -2659,7 +2659,7 @@ $ fusermount -u mountpoint
 
 ### 15.1.1 Compiling Multiple Source Files
 
-- For most .c files, you don’t create an executable right away. Instead, you create **object files** containing binary object code.
+- For most .c files, you don't create an executable right away. Instead, you create **object files** containing binary object code.
 - An **object file** is a binary file that a **processor can almost understand**.
 - **Linker** (**ld**) is used to build a fully functioning executable program from one or more object files.
 - C compiler knows how to run the linker program.
@@ -2671,14 +2671,14 @@ $ fusermount -u mountpoint
 ### 15.1.3 Working with Shared Libraries
 
 - Static library files **end with .a**.
-- The **/lib** directory **shouldn’t contain static libraries**.
+- The **/lib** directory **shouldn't contain static libraries**.
   ```bash
   # To see what shared libraries a program uses.
   $ ldd /bin/bash
   ```
-- Executables don’t usually know the location of their shared libraries. A program named **`ld.so`** (the runtime dynamic linker/loader) finds and loads shared libraries at runtime.
+- Executables don't usually know the location of their shared libraries. A program named **`ld.so`** (the runtime dynamic linker/loader) finds and loads shared libraries at runtime.
 - How `ld.so` Finds Shared Libraries
-  1. Executable’s pre-configured runtime library search path (**rpath**).
+  1. Executable's pre-configured runtime library search path (**rpath**).
   2. **System cache, `/etc/ld.so.cache`** - this is **a cache of the names of library files** found in directories listed in the cache configuration file `/etc/ld.so.conf`.
   3. The environment variable `LD_LIBRARY_PATH` - the no.1 cause of all shared library problems.
 
@@ -2725,14 +2725,14 @@ $ make CC=clang
 
 ### 15.2.6 Standard Macros and Variables
 
-- Macro usually doesn’t change after “make” starts building targets.
+- Macro usually doesn't change after “make” starts building targets.
 - A “make” variable changes as you build targets.
 
 ### 15.2.7 Conventional Targets
 
 - Additional common targets:
   - **clean**
-  - **distclean** \- The GNU autotools system uses this to remove everything that wasn’t part of the original distribution.
+  - **distclean** \- The GNU autotools system uses this to remove everything that wasn't part of the original distribution.
   - **install** \- Copies files and compiled programs. This can be dangerous, so always do a dry-run, make \-n install.
   - **test or check**
   - **all**
