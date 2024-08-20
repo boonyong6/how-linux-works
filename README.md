@@ -580,7 +580,8 @@ noauto | To prevent a boot-time mount of a removable-media device.
 
 ```bash
 # To view the size and utilization of mounted filesystems.
-# Filesystems usually have hidden reserved blocks that only the superuser can use. This is to keep servers from immediately failing when they run out of disk space.
+# Filesystems usually have hidden reserved blocks that only the superuser can use. This is 
+#   to keep servers from immediately failing when they run out of disk space.
 $ df
 
 # To get a usage listing.
@@ -591,7 +592,8 @@ $ du
 
 ```bash
 # To check a filesystem.
-# Never use fsck on a mounted filesystem, except you mount the root partition read-only in single-user mode.
+# Never use fsck on a mounted filesystem, except you mount the root partition read-only 
+#   in single-user mode.
 $ sudo fsck /dev/sdb2
 # To check the filesystem without modifying anything.
 $ sudo fsck -n /dev/sdb2
