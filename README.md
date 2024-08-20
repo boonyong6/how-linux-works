@@ -158,7 +158,8 @@ $ man 5 passwd
 ### 2.14.1 Standard Error
 
 ```bash
-# Send standard output to f and standard error to e, use the 2> syntax (2 is standard error's stream ID)
+# Send standard output to f (>) and standard error to e (2>)
+# 2 is standard error's stream ID
 $ ls /fffffffff > f 2> e
 # Send the standard error to the same place as stdout with the >& notation
 $ ls /fffffffff > f 2>&1
@@ -248,7 +249,7 @@ $ ln -s /home/origdir somedir
   - Chained symbolic link \- link that points to another link.
   - Without the \-s option, ln creates a hard link, which can be more confusing than symbolic links. So, avoid using them.
 
-## \*2.18 Archiving and Compressing Files
+## *2.18 Archiving and Compressing Files
 
 ```bash
 $ gzip file
@@ -268,7 +269,7 @@ $ tar tf archive.tar
 $ gunzip file.tar.gz
 $ tar xvf file.tar
 
-# zcat is the same as gunzip -dc. -d option decompresses. -c option sends the result to standard output
+# zcat is the same as gunzip -dc. -d: decompresses. -c: sends the result to standard output.
 $ zcat file.tar.gz | tar xvf -
 # Use z option (zcat shortcut) to invoke gzip on the archive automatically.
 # You're actually performing two steps when taking the shortcut.
@@ -672,7 +673,8 @@ $ sudo pvdisplay
 
 # =========================================================================
 
-# 1. Create a single partition on each of the disks and label it for LVM using fdisk (Partitioning enables booting from the disk)
+# 1. Create a single partition on each of the disks and label it for LVM using fdisk 
+# (Partitioning enables booting from the disk)
 
 # 2. Creating Physical Volumes and a Volume Group
 # Designates one of the partitions as a PV and assigns it to a new volume group.
@@ -953,7 +955,8 @@ Description=echo socket
 
 [Socket]
 ListenStream=22222
-# Instructs systemd not only listen on port, but also to accept incoming connections on behalf of the service unit and pass it to them, creating a separate instance for each connection.
+# Instructs systemd not only listen on port, but also to accept incoming connections on behalf of 
+#   the service unit and pass it to them, creating a separate instance for each connection.
 Accept=true
 
 # =========================================================================
@@ -1079,7 +1082,8 @@ $ journalctl -F _SYSTEMD_UNIT
 # Finding Fields
 # ==============
 # List all available fields. 
-# Any field beginning with an underscore is a trusted field, which means the client that sends a message cannot alter these fields.
+# Any field beginning with an underscore is a trusted field, which means the client that sends 
+#   a message cannot alter these fields.
 $ journalctl -N
 # Search individual fields (e.g. _PID, _BOOT_ID)
 $ journalctl _PID=8792
@@ -1087,7 +1091,8 @@ $ journalctl _PID=8792
 # Filtering by Text
 # =================
 # Run grep (-g) over messages.
-# You get only the messages that match the expression. Often, important information might be nearby. So, run journalctl -S to see what messages came around the same time.
+# You get only the messages that match the expression. Often, important information might be nearby. 
+#   So, run journalctl -S to see what messages came around the same time.
 $ journalctl -g 'kernel.*memory'
 
 # Filtering by Boot
@@ -1316,7 +1321,8 @@ $ atrm 6
 ### 7.7.1 Timer Unit Equivalents
 
 ```bash
-# You must include a (future) calendar date and the time. Otherwise, the timer will run the service daily at the specified time.
+# You must include a (future) calendar date and the time. Otherwise, the timer will run 
+#   the service daily at the specified time.
 $ sudo systemd-run --on-calendar='2024-02-15 16:00' /bin/echo this is a test
 
 # Use --on-active to specify a time offset
@@ -1454,7 +1460,8 @@ $ time ls
 - Kernel may also change the priority during program execution according to the amount of CPU time the process consumes. (e.g. **aging priority**)
 
 ```bash
-# Only the superuser can set the nice value to a negative number, but doing so is always a bad idea because system processes may not get enough CPU time.
+# Only the superuser can set the nice value to a negative number, but doing so is always 
+#   a bad idea because system processes may not get enough CPU time.
 $ renice 20 pid
 ```
 
@@ -1505,7 +1512,8 @@ $ top
 # vmstat is handy for getting a high-level view.
 # swpd column shows the memory swapped out to the disk.
 # buff column shows the amount of memory used for disk buffers.
-# us, sy, id and wa list the percentage of time the CPU is spending on user tasks, system (kernel) tasks, idle time, and waiting for I/O.
+# us, sy, id and wa list the percentage of time the CPU is spending on user tasks, 
+#   system (kernel) tasks, idle time, and waiting for I/O.
 $ vmstat 2
 ```
 
@@ -1575,7 +1583,8 @@ $ pidstat -p 1329 1
 
 ```bash
 # To see the CPU usage of a cgroup.
-# You can see how a service consumes processor time even if it spawns many subprocesses that eventually terminate.
+# You can see how a service consumes processor time even if it spawns many subprocesses that 
+#   eventually terminate.
 $ cat cpu.stat
 ```
 
@@ -1887,7 +1896,9 @@ $ sudo iptables -A INPUT -s 127.0.0.1 -j ACCEPT
 $ sudo iptables -A INPUT -s 192.168.0.22 -j ACCEPT
 $ sudo iptables -A INPUT -s 192.168.0.0/24 -j ACCEPT
 
-# 4. Make sure that your host can make TCP connections to the internet. Because all TCP connections start with a SYN (connection request) packet, you can let all TCP packets through that aren't SYN packets.
+# 4. Make sure that your host can make TCP connections to the internet. Because all TCP connections 
+#    start with a SYN (connection request) packet, you can let all TCP packets through that aren't 
+#    SYN packets.
 $ sudo iptables -A INPUT -p tcp '!' --syn -j ACCEPT
 
 # 5. [Optional] If you're using remote UDP-based DNS, you must accept traffic from your name server.
@@ -2012,9 +2023,11 @@ $ sudo lsof -iTCP -sTCP:LISTEN
 ### 10.5.2 tcpdump
 
 ```bash
-# To put your network interface card into promiscuous mode and reports on every packet that comes across your machine.
+# To put your network interface card into promiscuous mode and reports on every packet that 
+#   comes across your machine.
 $ sudo tcpdump
-# Packet protocols that tcpdump recognizes are ARP, RARP, ICMP, TCP, UDP, IP, IPv6, AppleTalk, and IPX packets.
+# Packet protocols that tcpdump recognizes are ARP, RARP, ICMP, TCP, UDP, IP, IPv6, AppleTalk, 
+#   and IPX packets.
 # To output only TCP packets.
 $ sudo tcpdump tcp
 # To see web packets and UDP packets.
@@ -2309,7 +2322,8 @@ $ sed '/exp/d' input-file
 - Alternative for find command: \-exec option.
 
 ```bash
-# The -print0 and -0 options change the find output separator and the xargs argument delimiter from a newline to a NULL character.
+# The -print0 and -0 options change the find output separator and the xargs argument delimiter 
+#   from a newline to a NULL character.
 $ find . -name '*.gif' -print0 | xargs -0 file
 
 # Use {} to substitute the filename.
@@ -2389,7 +2403,8 @@ $ python3 -m http.server
 # To copy files to the remote host's home directory.
 $ rsync file1 file2 ... user@host:
 
-# Use the -a to transfer entire directory hierarchies (complete with symbolic links, permissions, modes, and devices).
+# Use the -a to transfer entire directory hierarchies (complete with symbolic links, 
+#   permissions, modes, and devices).
 $ rsync -a dir host:dest_dir
 
 # Use the -n option tells rsync to operate in "dry run" mode.
@@ -2399,7 +2414,8 @@ $ rsync -nva dir host:dest_dir
 ### 12.2.2 Making Exact Copies of a Directory Structure
 
 ```bash
-# Use the --delete to delete files in the destination directory that do not exist in the source directory.
+# Use the --delete to delete files in the destination directory that do not exist in 
+#   the source directory.
 # If you're not certain about your transfer, use the -nv option to perform a dry run.
 $ rsync -a --delete dir host:des_dir
 ```
@@ -2687,7 +2703,8 @@ $ fusermount -u mountpoint
 # object files
 OBJS=aux.o main.o # A macro definition that sets the OBJS variable
 # all    - the first/default target.
-# myprog - the rule/dependency for building the target. myprog can be an actual file or the target of another rule.
+# myprog - the rule/dependency for building the target. myprog can be an actual file or 
+#   the target of another rule.
 all: myprog
 
 myprog: $(OBJS)
