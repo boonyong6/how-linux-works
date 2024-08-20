@@ -798,18 +798,18 @@ grub> set
 ### 5.5.2 GRUB Configuration
 
 - Many distributions use the submenu command for older versions of the kernel.
-- Every file in /etc/grub.d is a shell script that produces a piece of the grub.cfg file.
+- Every file in `/etc/grub.d` is a shell script that produces a piece of the grub.cfg file.
 - 2 options to customize the grub configuration:
-  1. **/etc/grub.d/40_custom** \- add your custom commands in 40_custom. Then, **build a new configuration file using grub-mkconfig**. This will embed the custom commands in the grub.cfg.
-  2. **/etc/grub.d/41_custom (preferred)** \- put the customizations into a new **/boot/grub/custom.cfg** file, and grub.cfg will then load it.
+  1. **`/etc/grub.d/40_custom`** \- add your custom commands in 40_custom. Then, **build a new configuration file using grub-mkconfig**. This will embed the custom commands in the grub.cfg.
+  2. **`/etc/grub.d/41_custom` (preferred)** \- put the customizations into a new **`/boot/grub/custom.cfg`** file, and grub.cfg will then load it.
 
 ## Skip the remaining material in this chapter…
 
 # 6 HOW USER SPACE STARTS
 
 - User space starts in roughly this order:
-  1. init (**systemd**)
-  2. Essential low-level services, such as **udevd** and **syslog** (systemd Auxiliary Components)
+  1. init (**`systemd`**)
+  2. Essential low-level services, such as **`udevd`** and **`syslog`** (systemd Auxiliary Components)
   3. **Network** configuration
   4. Mid- and high-level services (**cron**, printing, and so on)
   5. Login prompts, GUIs, and high-level applications, such as **web servers**
@@ -856,14 +856,14 @@ Mount units | Represent the attachment of filesystems.
   ```
 
 - In a unit file, there can be **multiple sections denoted by square brackets**, each containing multiple options.
-- In a **service unit**, you’ll find the details in the **\[Service\] section**, including how to **prepare**, **start**, and **reload** the service.
-- Upon unit activation, systemd records and stores its PID in the **$MAINPID** variable.
+- In a **service unit**, you’ll find the details in the **`[Service]` section**, including how to **prepare**, **start**, and **reload** the service.
+- Upon unit activation, systemd records and stores its PID in the **`$MAINPID`** variable.
 - Specifier (**%**) is a **variable-like feature**.
   - It can be used in units that support **multiple instances**.
-  - Add an **@** symbol to the end of the unit name to enable unit instantiation. E.g. getty@.service
-  - systemd replaces the %I or %i specifier with the instance.
+  - Add an **`@`** symbol to the end of the unit name to enable unit instantiation. E.g. `getty@.service`
+  - systemd replaces the `%I` or `%i` specifier with the instance.
 
-### \*6.3.4 systemd Operation
+### *6.3.4 systemd Operation
 
 ```bash
 # To view a list of active units
@@ -899,15 +899,15 @@ $ sudo systemctl -p Wants show systemd-journald.service
 
 - To manage activated units, systemd uses **cgroups** **for finer tracking of a process hierarchy**.
 
-**Service unit files** use the `[Service]` section's **Type option** to indicate **startup behavior/status**.
+**Service unit files** use the **`[Service]`** section's **Type option** to indicate **startup behavior/status**.
 Type option | Description
 ------------|------------
-Type=simple | The service doesn’t fork and terminate. It remains the main service process. <br><br>Unable to determine whether the service process is ready.
-Type=forking | The service forks, and systemd expects the original service to terminate. Upon this termination, systemd assumes the service is ready.
-Type=notify | The service makes a systemd-specific function call to signal its readiness.
-Type=dbus | The service registers itself on the D-Bus to signal its readiness.
-Type=oneshot | The service terminates completely with no child processes after starting. <br><br>It’s like Type=simple, except that systemd does not consider the service to be started until the service terminates. <br><br>systemd regards a service as active even after its termination.
-Type=idle | Works like Type=simple, but it instructs systemd not to start the service until all active jobs finish (delay start).
+Type=**simple** | The service doesn’t fork and terminate. It remains the main service process. <br><br>Unable to determine whether the service process is ready.
+Type=**forking** | The service forks, and systemd expects the original service to terminate. Upon this termination, systemd assumes the service is ready.
+Type=**notify** | The service makes a systemd-specific function call to signal its readiness.
+Type=**dbus** | The service registers itself on the D-Bus to signal its readiness.
+Type=**oneshot** | The service terminates completely with no child processes after starting. <br><br>It’s like **Type=simple**, except that systemd does not consider the service to be started until the service terminates. <br><br>systemd regards a service as active even after its termination.
+Type=**idle** | Works like **Type=simple**, but it instructs systemd not to start the service until all active jobs finish (**delay start**).
 
 ### 6.3.6 systemd Dependencies
 
@@ -944,7 +944,7 @@ ConditionFileNotEmpty=p | True if p is a file and it’s not zero-length.
   4. Unit A takes control of the resource and reads the buffered input.
 - Example
   1. Create a socket unit (resource), named **echo.socket**, to represent the port.
-  2. Create a service unit, named **echo@.service** (link the resource implicitly by naming convention). systemd knows to activate the service unit when there’s activity on the socket unit.
+  2. Create a service unit, named **`echo@.service`** (link the resource implicitly by naming convention). systemd knows to activate the service unit when there’s activity on the socket unit.
 
 ```bash
 # echo.socket file
@@ -978,7 +978,7 @@ $ telnet localhost 22222
 
 ### 6.3.8 systemd Auxiliary Components
 
-- systemd includes support for tasks not related to startup and service management, such as **udevd**, **journald** and **resolved**. These services are prefixed with **systemd-**.
+- systemd includes support for tasks not related to startup and service management, such as **`udevd`**, **`journald`** and **`resolved`**. These services are prefixed with **`systemd-`**.
 
 ## 6.4 System V Runlevels
 
@@ -992,7 +992,7 @@ $ telnet localhost 22222
 - It is now uncommon.
 - It has 2 components:
   1. Central configuration file - `/etc/inittab`
-  2. A set of boot scripts - `/etc/rc*.d` (rc stands for run commands (aka scripts, programs, or services)
+  2. A set of boot scripts - `/etc/rc*.d`, rc stands for run commands (aka scripts, programs, or services)
 
 ### 6.5.2 The System V init Link Farm
 
@@ -1839,7 +1839,7 @@ $ resolvectl status
 - The system that maintains the firewall's data structures is called **iptables**.
 - Although there are many tables, you’ll normally work with a single table named **filter** that controls basic packet flow.
 - **Three basic chains** in the filter table: **INPUT**, **OUTPUT** and **FORWARD**.
-  ![chain-processing-sequence](image.png)
+  ![chain-processing-sequence](images/chain-processing-sequence.png)
 
 ### *9.25.2 Setting Firewall Rules
 
@@ -1943,7 +1943,7 @@ $ curl --trace-ascii trace_file https://www.example.org/
 
 ## 10.3 Network Servers
 
-- Most network servers usually operate as multiple processes. One process **listens on a network port**, and upon receiving a new incoming connection, it uses fork() to create a child/worker process.
+- Most network servers usually operate as multiple processes. One process **listens on a network port**, and upon receiving a new incoming connection, it uses `fork()` to create a child/worker process.
 
 ### 10.3.1 Secure Shell
 
